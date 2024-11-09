@@ -38,6 +38,8 @@ if full_address:
                 longitude=longitude_str, 
                 use_container_width=True,
                 zoom=14)
+    else:
+        st.write("There was a problem with the address.")
     if address and city and state and zip:
         # st.success("All fields are filled out!")
         pass
