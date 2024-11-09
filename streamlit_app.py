@@ -14,7 +14,7 @@ with col4:
     zip = st.text_input("Zip Code", placeholder="28081")
 full_address = f"{address}  \n {city} {state}, {zip}"
 full_address_2 = f"{address}, {city}, {state}, {zip}"
-if full_address:
+if isinstance(full_address,str):
     try:
         results = cg.onelineaddress(full_address_2)
     except:
