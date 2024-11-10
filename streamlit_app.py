@@ -4,6 +4,9 @@ import censusgeocode as cg
 st.subheader("Enter an address")
 tab1, tab2 = st.tabs(["Enter Address", "Paste Address"])
 
+if 'address_history' not in st.session_state:
+    st.session_state.address_history = {}
+
 with tab1:
     col1, col2, col3, col4 = st.columns([2, 1, 1,1]) 
     with col1:
@@ -40,6 +43,8 @@ with tab1:
                         longitude=longitude_str, 
                         use_container_width=True,
                         zoom=14)
+                
+                st.session_state.address_history[results[0]['matchedAddress']] = result
             else:
                 st.write("There was a problem with the address.")
         except NameError as e:
@@ -48,4 +53,11 @@ with tab2:
     st.write("Feature in progress")
     # full_address = st.text_input(label='Full address', placeholder='164 S Main St Kannapolis, NC 28081')
 
+
+
+with st.sidebar:
+    st.header("This sessions history")
+    for k, v in reversed(list(st.session_state.address_history.items())):
+        st.write(f"{k}: **{v}**")
+        st.divider()
 
